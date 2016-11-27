@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+	    http://www.springframework.org/schema/beans/spring-beans-4.0.xsd   
+	    http://www.springframework.org/schema/context   
+	    http://www.springframework.org/schema/context/spring-context-4.0.xsd  
+	    http://www.springframework.org/schema/tx
+	    http://www.springframework.org/schema/tx/spring-tx-4.0.xsd    
+	    http://www.springframework.org/schema/aop 
+     	http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+	
+	<context:property-placeholder file-encoding="utf-8" location="classpath:global.properties" ignore-resource-not-found="false" />    
+
+    <bean class="com.witcream.ext.SpringContextHolder" /> 
+    <bean class="com.witcream.ext.web.ExceptionAdvise" />
+    <bean class="com.witcream.ext.meta.DisplayAspect" />
+    
+    <bean id="tokenManager" class="com.witcream.ext.meta.CustomTokenManager" 
+		p:timeout="7300" 
+		p:jedisPool-ref="tokenPool" 
+		p:base64EncodedSecretKey="Y29tLm1haXhpYW4uYXBwLk1haSRYaWFu" />
+     	
+	<bean id="securityAspect" class="com.witcream.ext.meta.SecurityAspect" 
+		p:tokenManager-ref="tokenManager" 
+		p:securityKey="Mai$Xian" />
+
+	<aop:aspectj-autoproxy />
+	
+	<bean id="genericObjectPoolConfig" class="org.apache.commons.pool2.impl.GenericObjectPoolConfig"
+		p:testOnBorrow="true"
+		p:maxTotal="100"
+		p:maxIdle="20" />
+		
+	<bean id="tokenPool" class="redis.clients.jedis.JedisPool" destroy-method="close">
+		<constructor-arg type="GenericObjectPoolConfig" name="poolConfig" ref="genericObjectPoolConfig" />
+		<constructor-arg type="String" name="host" value="@token.redis.host@" />
+		<constructor-arg type="int" name="port" value="@token.redis.port@" />
+		<constructor-arg type="int" name="timeout" value="30000" />
+		<constructor-arg type="String" name="password" value="ijk!Kq$T5n" />
+	</bean>
+	
+	<bean id="tokenExpiredSub" class="com.witcream.ext.meta.TokenExpiredSub" 
+		p:tokenManager-ref="tokenManager"/>
+		
+	<bean id="redisTokenSubHolder" class="com.witcream.ext.meta.RedisTokenSubHolder" init-method="init">
+		<constructor-arg index="0" ref="tokenPool" />
+		<constructor-arg index="1" ref="tokenExpiredSub" />
+	</bean>
+	
+	<import resource="consumer.xml"/>
+	
+</beans>

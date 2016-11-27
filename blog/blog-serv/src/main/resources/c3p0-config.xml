@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<c3p0-config>
+	<default-config>
+		<!-- jdbc:log4, net.sf.log4jdbc.DriverSpy -->
+		<property name="jdbcUrl">jdbc:log4jdbc:mysql://${mysql.host}:${mysql.port}/${mysql.db}?useUnicode=true&amp;characterEncoding=utf8&amp;allowMultiQueries=true</property>
+		<property name="driverClass">
+			<!-- com.mysql.jdbc.Driver -->
+			net.sf.log4jdbc.DriverSpy
+		</property>
+		<property name="user">${mysql.user}</property>
+		<property name="password">${mysql.password}</property>
+		<property name="maxPoolSize">50</property>
+		<property name="minPoolSize">2</property>
+		<property name="initialPoolSize">5</property>
+		<property name="checkoutTimeout">1000</property>
+		<property name="acquireIncrement">5</property>
+		<property name="acquireRetryAttempts">3</property>
+		<property name="acquireRetryDelay">500</property>
+		
+		<!-- 
+			maxIdleTime 				连接最大空闲时间（maxIdleTime < mysql_wait_timeout）
+			idleConnectionTestPeriod	测试空闲连接的间隔时间（idleConnectionTestPeriod < maxIdleTime < mysql_wait_timeout）
+		-->
+		<property name="maxIdleTime">3500</property>
+		<property name="idleConnectionTestPeriod">3400</property>
+		<!-- 
+		<property name="maxConnectionAge">3600</property>
+		<property name="maxIdleTimeExcessConnections">3000</property> 
+		-->
+	</default-config>
+</c3p0-config>

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper      
+    PUBLIC "-//mybatis.apache.org//DTD Mapper 3.0//EN"      
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.maixian.serv.b2c.member.mapper.MemberMapper">
+
+	<resultMap type="com.maixian.b2c.api.bean.Member" id="memberMap">
+		<id column="mem_id" property="memId" />
+		<result column="account" property="account" />
+		<result column="login_pwd" property="loginPwd" />
+		<result column="pay_pwd" property="payPwd" />
+		<result column="level" property="level" />
+		<result column="level_name" property="levelName" />
+		<result column="nickname" property="nickname" />
+		<result column="picture" property="picture" />
+		<result column="mobile" property="mobile" />
+		<result column="mobile_bound" property="mobileBound" />
+		<result column="email" property="email" />
+		<result column="email_bound" property="emailBound" />
+		<result column="sex" property="sex" />
+		<result column="birthday" property="birthday" />
+		<result column="wechat_bound" property="wechatBound" />
+		<result column="wechat" property="wechat" />
+		<result column="register_channel" property="registerChannel" />
+		<result column="register_channel_name" property="registerChannelName" />
+		<result column="inviter_code" property="inviterCode" />
+		<result column="inviter_member" property="inviterMember" />
+		<result column="group" property="group" />
+		<result column="integral" property="integral" />
+		<result column="integral_consumer" property="integralConsumer" />
+		<result column="integral_blocked" property="integralBlocked" />
+		<result column="balance" property="balance" />
+		<result column="balance_blocked" property="balanceBlocked" />
+		<result column="balance_consumer" property="balanceConsumer" />
+		<result column="balance_present" property="balancePresent" />
+		<result column="commission" property="commission" />
+		<result column="order_count" property="orderCount" />
+		<result column="enabled" property="enabled" />
+		<result column="created" property="created" />
+		<result column="community_code" property="communityCode" />
+	</resultMap>
+	
+	<!-- 多条件查询Member -->
+	<select id="queryMember" parameterType="map" resultMap="memberMap">
+		select * from member
+		<where>
+			<if test="mem_id != null and mem_id.toString() != ''">
+				and mem_id = #{mem_id}
+			</if>
+			<if test="account != null and account.toString() != ''">
+				and account = #{account}
+			</if>
+			<if test="wechat != null and wechat.toString() != ''">
+				and wechat = #{wechat}
+			</if>
+			<if test="wechat_bound != null and wechat_bound.toString() != ''">
+				and wechat_bound = #{wechat_bound}
+			</if>
+		</where>
+	</select>
+	
+	<select id="queryMemberList" parameterType="Map" resultMap="memberMap">
+		select * from member where mem_id in
+		<foreach collection="memIds" open="(" separator="," close=")" item="mem_id">
+			#{mem_id}
+		</foreach>
+	</select>
+	
+	<select id="queryMemberUpdate" parameterType="map" resultMap="memberMap">
+		select * from member
+		<where>
+			<if test="mem_id != null and mem_id.toString() != ''">
+				and mem_id = #{mem_id}
+			</if>
+			<if test="account != null and account.toString() != ''">
+				and account = #{account}
+			</if>
+			<if test="wechat != null and wechat.toString() != ''">
+				and wechat = #{wechat}
+			</if>
+		</where>
+		for update
+	</select>
+	
+	<update id="updateMember" parameterType="map">
+		update member
+		<set>
+			<if test="sex != null and sex.toString() != ''">
+				sex = #{sex},
+			</if>
+			<if test="birthday != null and birthday.toString() != ''">
+				birthday = #{birthday},
+			</if>
+			<if test="nickname != null and nickname.toString() != ''">
+				nickname = #{nickname},
+			</if>
+			<if test="picture != null and picture.toString() != ''">
+				picture = #{picture},
+			</if>
+			
+			<if test="login_pwd != null and login_pwd.toString() != ''">
+				login_pwd = #{login_pwd},
+			</if>
+			<if test="pay_pwd != null and pay_pwd.toString() != ''">
+				pay_pwd = #{pay_pwd},
+			</if>
+			<if test="wechat != null and wechat.toString() != ''">
+				wechat = #{wechat},
+			</if>
+			<if test="wechat_bound != null and wechat_bound.toString() != ''">
+				wechat_bound = #{wechat_bound},
+			</if>
+			<if test="inviter_member != null and inviter_member.toString() != ''">
+				inviter_member = #{inviter_member},
+			</if>
+			<if test="integral != null and integral.toString() != ''">
+				integral = #{integral},
+			</if>
+			<if test="integral_consumer != null and integral_consumer.toString() != ''">
+				integral_consumer = #{integral_consumer},
+			</if>
+			<if test="integral_blocked != null and integral_blocked.toString() != ''">
+				integral_blocked = #{integral_blocked},
+			</if>
+			<if test="balance != null and balance.toString() != ''">
+				balance = #{balance},
+			</if>
+			<if test="balance_consumer != null and balance_consumer.toString() != ''">
+				balance_consumer = #{balance_consumer},
+			</if>
+			<if test="balance_present != null and balance_present.toString() != ''">
+				balance_present = #{balance_present},
+			</if>
+			<if test="commission != null and commission.toString() != ''">
+				commission = #{commission},
+			</if>
+			<if test="order_count != null and order_count.toString() != ''">
+				order_count = #{order_count}
+			</if>
+		</set>
+		<where>
+			<if test="mem_id != null and mem_id.toString() != ''">
+				and mem_id = #{mem_id}
+			</if>
+			<if test="account != null and account.toString() != ''">
+				and account = #{account}
+			</if>
+		</where>
+	</update>
+	
+	<insert id="createMember" parameterType="map">
+		insert into member 
+			(mem_id, account, login_pwd, level, level_name, nickname, mobile, mobile_bound, wechat, wechat_bound, register_channel, register_channel_name, inviter_code, inviter_member)
+		values 
+			(#{mem_id}, #{account}, #{login_pwd}, #{level}, #{level_name}, #{nickname}, #{mobile}, #{mobile_bound}, #{wechat,jdbcType=VARCHAR}, #{wechat_bound,jdbcType=VARCHAR}, #{register_channel}, #{register_channel_name}, #{inviter_code}, #{inviter_member,jdbcType=BIGINT})
+	</insert>
+	
+	<update id="updateMemberOrderCount" parameterType="Map">
+		update member set order_count = order_count + 1 where mem_id = #{mem_id}
+	</update>
+	
+	<!-- member_id_card ############################################################################################## -->
+	
+	<resultMap type="com.maixian.b2c.api.bean.MemberIdCard" id="memberIdCardMap">
+		<id property="id" column="id" />
+		<result property="memId" column="mem_id" />
+		<result property="idCardNo" column="id_card_no" />
+		<result property="idName" column="id_name" />
+		<result property="enabled" column="enabled" />
+	</resultMap>
+	
+	<select id="queryMemberIdCard" parameterType="map" resultMap="memberIdCardMap">
+		select * from member_id_card
+		<where>
+			<if test="mem_id != null and mem_id.toString() != ''">
+				mem_id = #{mem_id}
+			</if>
+			<if test="id != null and id.toString() != ''">
+				and `id` = #{id}
+			</if>
+			<if test="id_card_no != null and id_card_no.toString() != ''">
+				and id_card_no = #{id_card_no}
+			</if>
+		</where>
+	</select>
+	
+	<select id="queryMemberIdCardList" parameterType="map" resultMap="memberIdCardMap">
+		select * from member_id_card where mem_id = #{mem_id}
+	</select>
+	
+	<insert id="createMemberIdCard" parameterType="map">
+		insert into member_id_card (mem_id, id_card_no, id_name) values (#{mem_id}, #{id_card_no}, #{id_name})
+	</insert>
+	
+	<delete id="deleteMemberIdCard" parameterType="map">
+		delete from member_id_card where mem_id = #{mem_id} and `id` = #{id}
+	</delete>
+	
+	
+</mapper>
