@@ -31,7 +31,7 @@
 			<version>${project.parent.version}</version>
 		</dependency>
 
-		<dependency>
+		<!-- <dependency>
 			<groupId>io.vanadar</groupId>
 			<artifactId>vanadar-ext</artifactId>
 			<version>0.0.1-RELEASE</version>
@@ -41,7 +41,7 @@
 					<artifactId>javax.servlet-api</artifactId>
 				</exclusion>
 			</exclusions>
-		</dependency>
+		</dependency> -->
 
 		<dependency>
 			<groupId>org.everit.json</groupId>

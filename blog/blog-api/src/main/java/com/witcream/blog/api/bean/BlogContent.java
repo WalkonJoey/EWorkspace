@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Blog implements Serializable {
+public class BlogContent implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int blogId;
 	private String blogCategory;

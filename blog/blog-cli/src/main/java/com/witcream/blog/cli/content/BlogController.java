@@ -12,17 +12,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.witcream.blog.api.bean.Blog;
-import com.witcream.blog.api.service.IBlogService;
+import com.witcream.blog.api.bean.BlogContent;
+import com.witcream.blog.api.service.IBlogContentService;
 import com.witcream.core.PageInfo;
 import com.witcream.core.R;
 
 @Controller
-@RequestMapping({ "/blog" })
+@RequestMapping({ "/blogContent" })
 public class BlogController {
-	@Resource(name = "blogService")
-	protected IBlogService blogService;
-	private static final Logger logger = Logger.getLogger(BlogController.class);
+	@Resource(name = "blogContentService")
+	private IBlogContentService blogContentService;
+	private final Logger logger = Logger.getLogger(BlogController.class);
 
 	@RequestMapping(params = { "blogManagePage" })
 	public String forward() {
@@ -31,14 +31,14 @@ public class BlogController {
 
 	@RequestMapping({ "blogDetailPg" })
 	public String blogDetailPgViaAddAttrPg(HttpServletRequest request, int blogId, String skuNo) {
-		Blog blogVo = null;
+		BlogContent blogVo = null;
 		if ((skuNo != null) && (!"".equals(skuNo))) {
 			request.setAttribute("skuNo", skuNo);
-			blogVo = this.blogService.getBlogByBlogId(blogId);
+			blogVo = this.blogContentService.getBlogByBlogId(blogId);
 			request.setAttribute("blogInfo", blogVo);
 		} else if (blogId > 0) {
 			request.setAttribute("blogId", Integer.valueOf(blogId));
-			blogVo = this.blogService.getBlogByBlogId(blogId);
+			blogVo = this.blogContentService.getBlogByBlogId(blogId);
 			request.setAttribute("blogInfo", blogVo);
 		} else {
 			logger.debug("无效的ID");
@@ -57,7 +57,7 @@ public class BlogController {
 					"application/json;charset=UTF-8" })
 	@ResponseBody
 	public R findBlogsViaListPg(HttpServletRequest request, HttpServletResponse response, PageInfo pgInfo,
-			HttpSession session, Blog blogVo, String isSearch, String tag) {
+			HttpSession session, BlogContent blogVo, String isSearch, String tag) {
 		return R.OK();
 	}
 
@@ -66,7 +66,7 @@ public class BlogController {
 					"application/json;charset=UTF-8" })
 	@ResponseBody
 	public ModelAndView blogSearch(HttpServletRequest request, HttpServletResponse response, PageInfo pgInfo,
-			HttpSession session, Blog blogVo, String isSearch, String tag) {
+			HttpSession session, BlogContent blogVo, String isSearch, String tag) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("/blog-search");
 		/*try {

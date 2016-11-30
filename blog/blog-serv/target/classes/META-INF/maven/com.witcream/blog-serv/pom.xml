@@ -40,7 +40,7 @@
 			<version>${project.parent.version}</version>
 		</dependency>
 
-		<dependency>
+		<!-- <dependency>
 			<groupId>io.vanadar</groupId>
 			<artifactId>vanadar-ext</artifactId>
 			<version>0.0.1-RELEASE</version>
@@ -50,7 +50,7 @@
 					<groupId>org.springframework</groupId>
 				</exclusion>
 			</exclusions>
-		</dependency>
+		</dependency> -->
 
 		<dependency>
 			<groupId>com.googlecode.log4jdbc</groupId>
