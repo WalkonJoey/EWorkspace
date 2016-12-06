@@ -14,7 +14,7 @@
 	    http://www.springframework.org/schema/aop 
      	http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
 	
-	<context:property-placeholder file-encoding="utf-8" location="classpath:global.properties" ignore-resource-not-found="false" />    
+	<!-- <context:property-placeholder file-encoding="utf-8" location="classpath:global.properties" ignore-resource-not-found="false" />    
 
     <bean class="com.witcream.ext.SpringContextHolder" /> 
     <bean class="com.witcream.ext.web.ExceptionAdvise" />
@@ -50,7 +50,7 @@
 	<bean id="redisTokenSubHolder" class="com.witcream.ext.meta.RedisTokenSubHolder" init-method="init">
 		<constructor-arg index="0" ref="tokenPool" />
 		<constructor-arg index="1" ref="tokenExpiredSub" />
-	</bean>
+	</bean> -->
 	
 	<import resource="consumer.xml"/>
 	

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper      
+    PUBLIC "-//mybatis.apache.org//DTD Mapper 3.0//EN"      
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.witcream.blog.serv.template.mapper.ContentMapper">
+
+	<resultMap type="com.witcream.blog.api.bean.WebSiteTemplate" id="templateBean">
+		<id column="template_id" property="templateId" />
+		<result column="template_catagory" property="templateCategory" />
+		<result column="template_title" property="templateTitle" />
+		<result column="template_summary" property="templateSummary" />
+		<result column="template_content" property="templateContent" />
+		<result column="main_pic_path" property="mainPicPath" />
+		<result column="content_pics_path" property="contentPicsPath" />
+		<result column="author" property="author" />
+		<result column="read_count" property="readCount" />
+		<result column="like_count" property="likeCount" />
+		<result column="comment_count" property="commentCount" />
+		<result column="keywords" property="keywords" />
+		<result column="template_detail_url" property="templateDetailUrl" />
+		<result column="download_url" property="downloadUrl" />
+		<result column="preview_url" property="previewUrl" />
+		<result column="creator" property="creator" />
+		<result column="create_dt" property="createDt" />
+		<result column="operator" property="operator" />
+		<result column="operate_dt" property="operateDt" />
+		<result column="comment" property="comment" />
+	</resultMap>
+	<select id="queryWebSiteTemplates" resultMap="templateBean">
+		<include refid="QUERY_BLOGS" />
+		ORDER BY create_dt DEStemplate	<if test="pageModel!=null">
+			LIMIT #{pageModel.startRow}, #{pageModel.pageSize}
+		</if>
+	</select>
+
+	<sql id="QUERY_BLOGS">
+		SELECT A.template_id, A.template_catagory, A.template_title, A.template_summary,
+		A.template_content, A.main_pic_path,A.content_pics_path,
+		A.author ,A.read_count,A.like_count,A.comment_count,A.keywords
+		,A.template_detail_url ,A.download_url,A.preview_url, A.creator, A.create_dt,A.operator,
+		A.operate_dt,A.comment
+		FROM web_site_template A
+		<where>
+			<if test="paramMap!=null">
+				<if test="paramMap.templateCatagory != null and paramMap.templateCatagory != ''">
+					AND A.template_catagory = #{paramMap.templateCatagory}
+				</if>
+				<if test="paramMap.templateTitle != null and paramMap.templateTitle != ''">
+					AND A.template_title = #{paramMap.templateTitle}
+				</if>
+			</if>
+		</where>
+		<if test="paramMap.orderBy!=null and paramMap.orderBy != ''">
+			LIMIT #{paramMap.orderBy}, #{paramMap.sort}
+		</if>
+		<if
+			test="paramMap.startRow!=null and paramMap.startRow != '' and paramMap.pageSize!=null and paramMap.pageSize != ''">
+			LIMIT #{paramMap.startRow}, #{paramMap.pageSize}
+		</if>
+	</sql>
+
+	<select id="queryBlogsByIds" resultMap="templateBean">
+		select * from web_site_template A where A.template_id in
+		<foreach collection="templateIds" open="(" separator="," close=")"
+			item="template_id">
+			#{template_id}
+		</foreach>
+	</select>
+
+
+</mapper>

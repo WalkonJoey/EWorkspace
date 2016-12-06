@@ -20,6 +20,9 @@ import com.witcream.core.R;
 @Controller
 @RequestMapping({ "/blogContent" })
 public class BlogController {
+	public BlogController(){
+		System.out.println("-----------------------------------------");
+	} 
 	@Resource(name = "blogContentService")
 	private IBlogContentService blogContentService;
 	private final Logger logger = Logger.getLogger(BlogController.class);

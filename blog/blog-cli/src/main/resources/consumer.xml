@@ -15,39 +15,8 @@
 
     <dubbo:registry protocol="zookeeper" address="@zookeeper.cluster@" file="/data/program/cache/mxb2c_cli_@app.port@.properties" />
     
-  <!--   <dubbo:reference interface="com.maixian.b2c.api.service.AccessService" id="accessService" timeout="10000" />
-    <dubbo:reference interface="com.maixian.b2c.api.service.MemberService" id="memberService" timeout="10000" />
-    <dubbo:reference interface="com.maixian.b2c.api.service.AddressService" id="addressService" timeout="10000" />
-    
-    <dubbo:reference interface="com.maixian.b2c.api.service.CardService" id="cardService" timeout="10000" />
-    <dubbo:reference interface="com.maixian.b2c.api.service.CartService" id="cartService" timeout="10000" />
-    <dubbo:reference interface="com.maixian.b2c.api.service.CategoryService" id="categoryService" timeout="10000" />
-    <dubbo:reference interface="com.maixian.b2c.api.service.CollectService" id="collectService" timeout="10000" />
-    <dubbo:reference interface="com.maixian.b2c.api.service.CommonsService" id="commonsService" timeout="10000" />
-    <dubbo:reference interface="com.maixian.b2c.api.service.EvaluteService" id="evaluteService" timeout="10000" />
-    <dubbo:reference interface="com.maixian.b2c.api.service.GoodsService" id="goodsService" timeout="10000" />
-    <dubbo:reference interface="com.maixian.b2c.api.service.IdCardService" id="idCardService" timeout="10000" />
-    <dubbo:reference interface="com.maixian.b2c.api.service.IndexService" id="indexService" timeout="10000" />
-    <dubbo:reference interface="com.maixian.b2c.api.service.IntegralService" id="integralService" timeout="10000" />
-    <dubbo:reference interface="com.maixian.b2c.api.service.BalanceService" id="balanceService" timeout="10000" />
-     <dubbo:reference interface="com.maixian.b2c.api.service.CouponService" id="couponService" timeout="10000" />
-
-    <dubbo:reference interface="com.maixian.b2c.api.service.PaymentService" id="paymentService" timeout="10000" />
-    <dubbo:reference interface="com.maixian.b2c.api.service.OrderNotifyService" id="orderNotifyService" timeout="10000" />
-    <dubbo:reference interface="com.maixian.b2c.api.service.BalanceNotifyService" id="balanceNotifyService" timeout="10000" />
-    <dubbo:reference interface="com.maixian.b2c.api.service.SKUService" id="skuService" timeout="10000" />
-    
-	<dubbo:reference interface="com.maixian.b2c.api.service.CommonsOrderService" id="commonsOrderService" timeout="10000" />
-    <dubbo:reference interface="com.maixian.b2c.api.service.CartOrderService" id="cartOrderService" timeout="10000" />
-    <dubbo:reference interface="com.maixian.b2c.api.service.O2oOrderService" id="o2oOrderService" timeout="10000" />
-    <dubbo:reference interface="com.maixian.b2c.api.service.ComboOrderService" id="comboOrderService" timeout="10000" />
-    <dubbo:reference interface="com.maixian.b2c.api.service.PresellOrderService" id="presellOrderService" timeout="10000" />
-    
-    <dubbo:reference interface="com.maixian.b2c.api.service.MarketService" id="marketService" timeout="10000" />
-    
-    <dubbo:reference interface="com.maixian.b2c.api.service.AgentService" id="agentService" timeout="10000" />
-    
-    <dubbo:reference interface="com.maixian.b2c.api.service.GiftOrderService" id="giftOrderService" timeout="10000" />
-    <dubbo:reference interface="com.maixian.b2c.api.service.ExtService" id="extService" timeout="10000" /> -->
-    
+  <dubbo:reference interface="com.witcream.blog.api.service.IBlogContentService" id="blogContentService" timeout="10000" />
+    <dubbo:reference interface="com.witcream.blog.api.service.MemberService" id="memberService" timeout="10000" />
+    <dubbo:reference interface="com.witcream.blog.api.service.IBlogMsgService" id="blogMsgService" timeout="10000" />
+    <dubbo:reference interface="com.witcream.blog.api.service.IWebSiteTemplateService" id="webSiteTemplateService" timeout="10000" />
 </beans>

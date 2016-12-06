@@ -16,7 +16,7 @@
      	
     <context:property-placeholder file-encoding="utf-8" location="classpath:global.properties" ignore-resource-not-found="false" />
      	
-	<context:component-scan base-package="com.maixian" use-default-filters="false">
+	<context:component-scan base-package="com.witcream.blog.serv" use-default-filters="false">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service" />
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Component" />
 	</context:component-scan>
@@ -32,27 +32,27 @@
 	
 	<aop:aspectj-autoproxy proxy-target-class="true" />
 	
-	<bean id="displayAspect" class="io.vanadar.ext.meta.DisplayAspect" p:customOrder="2" />
-	<bean id="validatorAspect" class="io.vanadar.ext.meta.ValidatorAspect" p:customOrder="1" />
-	<bean class="io.vanadar.ext.SpringContextHolder"/>
+	<!-- <bean id="displayAspect" class="com.witcream.ext.meta.DisplayAspect" p:customOrder="2" />
+	<bean id="validatorAspect" class="com.witcream.ext.meta.ValidatorAspect" p:customOrder="1" /> -->
+	<bean class="com.witcream.ext.SpringContextHolder"/>
 	
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"
 		p:dataSource-ref="dataSource"
-		p:typeAliasesPackage="com.maixian.b2c.api.bean" 
-		p:mapperLocations="classpath*:com/maixian/serv/b2c/*/mapper/xml/*.xml" />
+		p:typeAliasesPackage="com.witcream.blog.api.bean" 
+		p:mapperLocations="classpath*:com/witcream/blog/serv/*/mapper/xml/*.xml" />
 	
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"
 		p:sqlSessionFactory-ref="sqlSessionFactory"
-		p:basePackage="com.maixian.serv.b2c.*.mapper"/>
+		p:basePackage="com.witcream.blog.serv.*.mapper"/>
 		
 		
-	<bean id="genericObjectPoolConfig" class="org.apache.commons.pool2.impl.GenericObjectPoolConfig"
+	<!-- <bean id="genericObjectPoolConfig" class="org.apache.commons.pool2.impl.GenericObjectPoolConfig"
 		p:testOnBorrow="true"
 		p:maxTotal="100"
-		p:maxIdle="20" />
+		p:maxIdle="20" /> -->
 	
 	<!-- 系统订单缓存 -->
-	<bean id="orderPool" class="redis.clients.jedis.JedisPool" destroy-method="close">
+	<!-- <bean id="orderPool" class="redis.clients.jedis.JedisPool" destroy-method="close">
 		<constructor-arg type="GenericObjectPoolConfig" name="poolConfig" ref="genericObjectPoolConfig" />
 		<constructor-arg type="String" name="host" value="${order.redis.host}" />
 		<constructor-arg type="int" name="port" value="${order.redis.port}" />
@@ -62,15 +62,15 @@
 	
 	<bean id="redisOrderSubHolder" class="com.maixian.serv.meta.RedisOrderSubHolder" init-method="init">
 		<constructor-arg index="0" ref="orderPool" />
-	</bean>
+	</bean> -->
 		
 	<!-- 系统验证码缓存 -->
-	<bean id="codePool" class="redis.clients.jedis.JedisPool" destroy-method="close">
+	<!-- <bean id="codePool" class="redis.clients.jedis.JedisPool" destroy-method="close">
 		<constructor-arg type="GenericObjectPoolConfig" name="poolConfig" ref="genericObjectPoolConfig" />
 		<constructor-arg type="String" name="host" value="127.0.0.1" />
 		<constructor-arg type="int" name="port" value="6379" />
 		<constructor-arg type="int" name="timeout" value="30000" />
 		<constructor-arg type="String" name="password" value="ijk!Kq$T5n" />
-	</bean>
+	</bean> -->
 	
 </beans>

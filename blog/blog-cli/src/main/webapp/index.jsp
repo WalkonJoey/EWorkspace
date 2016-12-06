@@ -696,7 +696,7 @@
     	$("#index-pg").addClass("active");
 		$.ajax({/* 加载日志页*/
 			type : "post",
-			url : "blog/getBlogsList.do",
+			url : "blogContent/getBlogsList.do",
 			data : {
 				/* productID : "${productID}",skuNo:"${skuNo}" */
 			},
@@ -747,7 +747,7 @@
 		});
 		$.ajax({/* 加载最受欢迎日志和最新日志*/
 			type : "post",
-			url : "blog/getBlogsList.do",
+			url : "blogContent/getBlogsList.do",
 			data : {
 				/* productID : "${productID}",skuNo:"${skuNo}" */
 				rows:"3",
@@ -774,7 +774,7 @@
 		});
         $.ajax({/* 加载最受欢迎日志和最新日志*/
             type : "post",
-            url : "blog/getBlogsList.do",
+            url : "blogContent/getBlogsList.do",
             data : {
             /* productID : "${productID}",skuNo:"${skuNo}" */
               rows:"3",
@@ -801,7 +801,7 @@
    		});
         $.ajax({/* 加载分类*/
             type : "post",
-            url : "blog/getAllCategorysCount.do",
+            url : "blogContent/getAllCategorysCount.do",
             data : {},
    			success : function(data) {
    				if (data.success) {
@@ -821,7 +821,7 @@
    		});
         $.ajax({/* 加载标签*/
             type : "post",
-            url : "blog/getAllTagsCount.do",
+            url : "blogContent/getAllTagsCount.do",
             data : {},
    			success : function(data) {
    				if (data.success) {
@@ -846,7 +846,7 @@
    		});
 		$.ajax({/* 加载模板页*/
 			type : "post",
-			url : "template/getTemplatesByCondition.do",
+			url : "webSiteTemplate/getTemplatesByCondition.do",
 			data : {
 				/* productID : "${productID}",skuNo:"${skuNo}" */
 			},

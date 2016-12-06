@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper      
+    PUBLIC "-//mybatis.apache.org//DTD Mapper 3.0//EN"      
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.witcream.blog.serv.msg.mapper.BlogMsgMapper">
+
+	<resultMap type="com.witcream.blog.api.bean.BlogMsg" id="blogMsgBean">
+		<id column="message_id" property="messageId" />
+		<result column="blog_id" property="blogId" />
+		<result column="head_portrait_path" property="headPortraitPath" />
+		<result column="creator" property="creator" />
+		<result column="email" property="email" />
+		<result column="like_count" property="likeCount" />
+		<result column="comment_count" property="commentCount" />
+		<result column="message_content" property="messageContent" />
+		<result column="create_dt" property="createDt" />
+		<association property="parentMessage" javaType="com.witcream.blog.api.bean.BlogMsg" resultMap="subMsgBean"/>
+		<collection property="childMessages" javaType="java.util.ArrayList" ofType="com.witcream.blog.api.bean.BlogMsg" resultMap="parentMsgBean"/>
+	</resultMap>
+	<resultMap id="subMsgBean" type="com.witcream.blog.api.bean.BlogMsg">
+		<id column="s_message_id" property="messageId" />
+		<result column="s_blog_id" property="blogId" />
+		<result column="s_head_portrait_path" property="headPortraitPath" />
+		<result column="s_creator" property="creator" />
+		<result column="s_email" property="email" />
+		<result column="s_like_count" property="likeCount" />
+		<result column="s_comment_count" property="commentCount" />
+		<result column="s_read_count" property="messageContent" />
+		<result column="s_like_count" property="createDt" />
+	</resultMap>
+	<resultMap id="parentMsgBean" type="com.witcream.blog.api.bean.BlogMsg">
+		<id column="p_message_id" property="messageId" />
+		<result column="p_blog_id" property="blogId" />
+		<result column="p_head_portrait_path" property="headPortraitPath" />
+		<result column="p_creator" property="creator" />
+		<result column="p_email" property="email" />
+		<result column="p_like_count" property="likeCount" />
+		<result column="p_comment_count" property="commentCount" />
+		<result column="p_read_count" property="messageContent" />
+		<result column="p_like_count" property="createDt" />
+	</resultMap>
+	<select id="queryBlogMsgs" resultMap="blogMsgBean">
+		<include refid="QUERY_BLOGS" />
+		ORDER BY create_dt DESC
+		<if test="pageModel!=null">
+			LIMIT #{pageModel.startRow}, #{pageModel.pageSize}
+		</if>
+	</select>
+
+	<sql id="QUERY_BLOGS">
+		SELECT A.*,B.message_id s_message_id ,B.blog_id s_blog_id ,B.head_portrait_path s_head_portrait_path ,B.creator s_creator
+		,B.email s_email,B.like_count s_like_count,B.comment_count s_comment_count,B.message_content s_message_content,B.create_dt s_create_dt,
+		C.message_id p_message_id ,C.blog_id p_blog_id ,C.head_portrait_path p_head_portrait_path ,C.creator p_creator
+		,C.email p_email,C.like_count p_like_count,C.comment_count p_comment_count,C.message_content p_message_content,C.create_dt p_create_dt,
+		FROM blog_content A LEFT JOIN blog_content B ON (A.message_id = B.parent_message_id) LEFT JOIN blog_content C ON (A.parent_message_id = C.message_id)
+		<where>
+			<if test="paramMap!=null">
+				<if test="paramMap.blogCatagory != null and paramMap.blogCatagory != ''">
+					AND A.blog_catagory = #{paramMap.blogCatagory}
+				</if>
+				<if test="paramMap.blogTitle != null and paramMap.blogTitle != ''">
+					AND A.blog_title = #{paramMap.blogTitle}
+				</if>
+				<if test="paramMap.tagName != null and paramMap.tagName != ''">
+					AND B.tag_name = #{paramMap.tagName}
+				</if>
+			</if>
+		</where>
+		<if test="paramMap.orderBy!=null and paramMap.orderBy != ''">
+			LIMIT #{paramMap.orderBy}, #{paramMap.sort}
+		</if>
+		<if
+			test="paramMap.startRow!=null and paramMap.startRow != '' and paramMap.pageSize!=null and paramMap.pageSize != ''">
+			LIMIT #{paramMap.startRow}, #{paramMap.pageSize}
+		</if>
+	</sql>
+
+	<select id="queryBlogsByIds" resultMap="blogMsgBean">
+		select * from blog_content A left join blog_tag B ON A.blog_id =
+		B.blog_id where A.blog_id in
+		<foreach collection="blogIds" open="(" separator="," close=")"
+			item="blog_id">
+			#{blog_id}
+		</foreach>
+	</select>
+
+
+</mapper>

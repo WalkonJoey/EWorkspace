@@ -7,7 +7,7 @@ public class BlogTag implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int tagId;
 	private String tagName;
-	private BlogContent blog;
+	private int blogId;
 	private String creator;
 	private Timestamp createDt;
 
@@ -27,14 +27,6 @@ public class BlogTag implements Serializable {
 		this.tagName = tagName;
 	}
 
-	public BlogContent getBlog() {
-		return this.blog;
-	}
-
-	public void setBlog(BlogContent blog) {
-		this.blog = blog;
-	}
-
 	public Timestamp getCreateDt() {
 		return this.createDt;
 	}
@@ -49,6 +41,14 @@ public class BlogTag implements Serializable {
 
 	public void setCreator(String creator) {
 		this.creator = creator;
+	}
+
+	public int getBlogId() {
+		return blogId;
+	}
+
+	public void setBlogId(int blogId) {
+		this.blogId = blogId;
 	}
 
 }

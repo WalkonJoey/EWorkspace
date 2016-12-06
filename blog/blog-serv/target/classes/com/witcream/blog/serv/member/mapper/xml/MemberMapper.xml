@@ -2,9 +2,9 @@
 <!DOCTYPE mapper      
     PUBLIC "-//mybatis.apache.org//DTD Mapper 3.0//EN"      
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.maixian.serv.b2c.member.mapper.MemberMapper">
+<mapper namespace="com.witcream.blog.serv.member.mapper.MemberMapper">
 
-	<resultMap type="com.maixian.b2c.api.bean.Member" id="memberMap">
+	<resultMap type="com.witcream.blog.api.bean.Member" id="memberMap">
 		<id column="mem_id" property="memId" />
 		<result column="account" property="account" />
 		<result column="login_pwd" property="loginPwd" />
@@ -161,7 +161,7 @@
 	
 	<!-- member_id_card ############################################################################################## -->
 	
-	<resultMap type="com.maixian.b2c.api.bean.MemberIdCard" id="memberIdCardMap">
+	<!-- <resultMap type="com.maixian.b2c.api.bean.MemberIdCard" id="memberIdCardMap">
 		<id property="id" column="id" />
 		<result property="memId" column="mem_id" />
 		<result property="idCardNo" column="id_card_no" />
@@ -194,7 +194,7 @@
 	
 	<delete id="deleteMemberIdCard" parameterType="map">
 		delete from member_id_card where mem_id = #{mem_id} and `id` = #{id}
-	</delete>
+	</delete> -->
 	
 	
 </mapper>

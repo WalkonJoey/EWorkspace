@@ -232,11 +232,11 @@
 			<properties>
 			
 				<!-- App -->
-				<app.address>10.10.10.149</app.address>
+				<app.address>127.0.0.1</app.address>
 				<app.port>8080</app.port>
 				
 				<!-- Zookeeper -->
-				<zookeeper.cluster>10.10.10.149:2181</zookeeper.cluster>
+				<zookeeper.cluster>127.0.0.1:2181</zookeeper.cluster>
 				
 				<!-- Redis -->
 				<token.redis.host>10.1.0.192</token.redis.host>
